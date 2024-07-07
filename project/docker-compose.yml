@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+
+  postgres_db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    container_name: user_db
+    environment:
+      POSTGRES_DB: dbname
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./db-data/postgres:/var/lib/postgresql/data
+  grpc_server:
+    build:
+      context: ./../server
+      dockerfile: Dockerfile # Assuming Dockerfile is in the server directory
+    container_name: grpc_server
+    restart: always
+    environment:
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_HOST=mysql_db
+      - DB_NAME=dbname
+    ports:
+      - "50051:50051"
+    depends_on:
+      - postgres_db
+
+  grpc_client:
+    build:
+      context: ./../client
+      dockerfile: Dockerfile # Assuming Dockerfile is in the client directory
+    container_name: grpc_client
+    restart: always
+    environment:
+      - GRPC_SERVER_HOST=grpc_server
+      - GRPC_SERVER_PORT=50051
+    ports:
+      - "8081:8081"
+    depends_on:
+      - grpc_server
+
+    volumes:
+      - ./db_data:/logs # Adjusted volume mount point for grpc_client

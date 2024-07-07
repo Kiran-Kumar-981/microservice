@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "/user";
+
+
+service UserService {
+    rpc GetUser (GetUserRequest) returns (UserResponse);
+    rpc GetUsers (GetUsersRequest) returns (UsersResponse);
+    rpc SearchUsers (SearchUsersRequest) returns (UsersResponse);
+}
+
+message UserData {
+    int64 id = 1;
+    string name = 2;
+    string address = 3;
+    int64 phone = 4;
+    float height = 5;
+    bool married = 6;
+}
+
+message GetUserRequest {
+    int64 id = 1;
+}
+
+message UserResponse {
+    UserData user = 1;
+}
+
+message GetUsersRequest {
+    repeated int64 ids = 1;
+}
+
+message UsersResponse {
+    repeated UserData users = 1;
+}
+
+message SearchUsersRequest {
+    string address = 1;
+    int64 phone = 2;
+    bool married = 3;
+}
