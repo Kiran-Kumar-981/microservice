@@ -1,42 +1,60 @@
-Project Title: Totality Corp
-
-Description
-
-This project is a Gin server that provides a REST API for user data. It uses a PostgreSQL database to store user information. its good as the gin implements protobuf as a prerequisites
-
 Getting Started
 
 Prerequisites
 
-- Go 1.22
-- PostgreSQL latest
-- Gin latest
-- gRPC latest
+-> Go 1.22.4
+-> PostgreSQL latest
 
-Installation
+# Setup
 
-1. Clone the repository: `git clone 
-2. Install dependencies: go get
-3. Start the server: go run main.go
+1. Extract the code 
 
-Usage
+2. Install dependencies:
+
+# Running the Server
+
+To run the gRPC server and expose HTTP endpoints:
+
+The server will start on port `8081` by default.
+
+# Running Tests
+
+To run tests for the HTTP handlers:
+
+This will run all tests, including those for the HTTP handlers and any other packages in the project.
+
+# Endpoints
+
+# Get User
+
+-> Endpoint: `/user/{id}`
+-> Method: GET
+-> Description: Retrieves user data by ID from the gRPC server.
+-> Example: `/user/1`
+
+# Get Users
+
+-> Endpoint: `/users?ids={id1}&ids={id2}&...`
+-> Method: GET
+-> Description: Retrieves multiple users by IDs from the gRPC server.
+-> Example: `/users?ids=1&ids=2`
+
+# Search Users
+
+-> Endpoint: `/search?address={address}&phone={phone}&married={true/false}`
+-> Method: GET
+-> Description: Searches users based on address, phone, and marital status from the gRPC server.
+-> Example: `/search?address=123%20Main%20St&phone=1234567890&married=true`
+
+# Dependencies
+
+-> `github.com/google/go-cmp/cmp`: Used for deep comparison of expected and actual values in tests.
+-> `google.golang.org/grpc`: Provides gRPC support for communication between the HTTP handlers and the gRPC server.
+-> `google.golang.org/protobuf/testing/protocmp`: Helper functions for comparing protobuf messages in tests.
 
 
-API Endpoints
+This template provides a basic structure
 
-- GET /users: Returns a list of all users
-- GET /user/:id: Returns a single user by ID
-- POST /user: Creates a new user
-- PUT /user/:id: Updates a single user
-- DELETE /user/:id: Deletes a single user
+If every Thing goes well we will get the output
 
-gRPC Endpoints
-
-- UserService/GetUsers: Returns a list of all users
-- UserService/GetUser: Returns a single user by ID
-- UserService/CreateUser: Creates a new user
-- UserService/UpdateUser: Updates a single user
-- UserService/DeleteUser: Deletes a single user
-
-
-Acknowledgments
+Provided unit test if the code changes that will be reflected in the test cases and will figure out the mistakes have done
