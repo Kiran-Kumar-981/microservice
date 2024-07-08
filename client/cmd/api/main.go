@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	conn, err := grpc.NewClient("grpc_server:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.DialContext(context.Background(), "grpc_server:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
