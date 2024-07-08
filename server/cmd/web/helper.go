@@ -12,7 +12,7 @@ import (
 
 // {"ID": 1, "Name": "Steve", "Address": "LA", "Phone": 1234567890, "Height": 5.8, "Married": true}
 type User struct {
-	ID      int
+	ID      int64
 	Name    string
 	Address string
 	Phone   string
